@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>flask CRUD app</title>
+        <meta name="flask crud app" content="...">
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        <meta name="theme-color" content="#000000">
+        <link rel="stylesheet" href="./../css/index.css">
+    </head>
+    <body>
+        <header><H1>TASK APP</H1></header>
+        <main>
+            <section id="add">
+                <form class="add-task-wraper" methods='POST' action="/add_task">
+                    <div class="value">
+                        <label>Name</label> <input type="text" class="value-input" name="name">
+                    </div>
+                    <div class="value">
+                        <label>State</label>
+                        <input type="checkbox" name="state">
+                    </div>
+                    <button type="submit" class="insert-value">SAVE</button>
+                </form>
+            </section>
+            <section id="print">
+                <div class="task-wrapper">
+                    <ul>
+                        {% for task in tasks %}
+                            <li>Id: {{ task[0] }}, Nombre: {{ task[1] }}, estado: {{ task[2]}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

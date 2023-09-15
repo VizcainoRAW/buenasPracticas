@@ -12,7 +12,9 @@ except mysql.connector.Error as err:
 
 def insert_values(table, columns, values):
     try:
+        print("guardando")
         sql = "INSERT INTO {} ({}) VALUES ({})".format(table, columns, values)
+        print(sql)
         mycursor.execute(sql)
         mydb.commit()
     except mysql.connector.Error as err:
