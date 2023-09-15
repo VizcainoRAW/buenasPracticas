@@ -1,0 +1,10 @@
+CREATE DATABASE tasksDB;
+USE tasksDB;
+
+CREATE TABLE tasks(
+
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100),
+state BOOL
+
+);
