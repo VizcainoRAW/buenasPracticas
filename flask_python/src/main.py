@@ -27,10 +27,11 @@ def delete(id):
     return redirect(url_for('index'))
 
 
-@app.route('/edit/<string:id>')
-def edit(id):
-    name = "editado"
-    state = False
+@app.route('/edit',methods=["POST"])
+def edit():
+    id =request.form['id']
+    name = request.form['name']
+    state = request.form.get('state')
     update_recordById("tasks",id,"name=%s, state=%s",(name, state))
     return redirect(url_for('index'))
 
