@@ -6,32 +6,82 @@
         <meta name="flask crud app" content="...">
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         <meta name="theme-color" content="#000000">
-        <link rel="stylesheet" href="./../css/index.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reset.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
     </head>
     <body>
-        <header><H1>TASK APP</H1></header>
+        <header><h1>TASK APP</h1></header>
         <main>
             <section id="add">
-                <form class="add-task-wraper" methods='POST' action="/add_task">
-                    <div class="value">
-                        <label>Name</label> <input type="text" class="value-input" name="name">
-                    </div>
-                    <div class="value">
-                        <label>State</label>
-                        <input type="checkbox" name="state">
-                    </div>
-                    <button type="submit" class="insert-value">SAVE</button>
-                </form>
+                <div class="container">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form action="/add" method="POST">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control mb-3" name="name">
+                                    </div>
+                                    <div class="col">
+                                        <label>State</label>
+                                        <input type="checkbox" class="form-control mb-3" style="height: 40px; width: 40px;" name="state" value="True">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary mb-3 mt-4" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            </form>
             </section>
-            <section id="print">
-                <div class="task-wrapper">
-                    <ul>
-                        {% for task in tasks %}
-                            <li>Id: {{ task[0] }}, Nombre: {{ task[1] }}, estado: {{ task[2]}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{ task[0] }}</td>
+                            <td>{{ task[1] }}</td>
+                            <td>{{ "Hecho" if task[2] else "No Hecho" }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" id="btn-edit{{ task[0] }}" data-bs-toggle="modal" data-bs-target="#modal{{ task[0] }}">Edit</button>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('delete', id=task[0]) }}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+    
+                        <div class="modal fade" id="modal{{ task[0] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ task[1] }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/edit/{{ task[0] }}" method="post">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control mb-3" name="name" value="{{ task[1] }}">
+                                            <label>State</label>
+                                            <input type="checkbox" class="form-control mb-3" name="state" value="{{ task[2] }}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </table>
         </main>
-    </body>
+    </body>    
 </html>

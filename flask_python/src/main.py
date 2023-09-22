@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import *
 from connection_factory import *
 
 app = Flask(__name__)
@@ -8,10 +8,27 @@ def index():
     tasks = get_all_table("tasks")
     return render_template("index.html", tasks=tasks)
 
-@app.route('/add_task', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add_task():
     name = request.form['name']
-    state = request.form.get('state', False)
+    state = request.form.get('state')
+    if state == 'True':
+        state = True
+    else:
+        state= False
+    
+    insert_values("Tasks", "name, state", (name, state))
+
+    return redirect(url_for('index'))
+
+@app.route('/delete/<string:id>')
+def delete(id):
+    return redirect(url_for('index'))
+
+@app.route('/edit/<string:id>', methods=['POST'])
+def edit(id):
+    name = request.form['name']
+    state = request.form['state']
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
