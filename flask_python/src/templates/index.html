@@ -8,6 +8,7 @@
         <meta name="theme-color" content="#000000">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reset.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     </head>
     <body>
         <header><h1>TASK APP</h1></header>
@@ -51,7 +52,7 @@
                             <td>{{ task[1] }}</td>
                             <td>{{ "Hecho" if task[2] else "No Hecho" }}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm" id="btn-edit{{ task[0] }}" data-bs-toggle="modal" data-bs-target="#modal{{ task[0] }}">Edit</button>
+                                <a href="{{ url_for('edit', id=task[0]) }}" class="btn btn-danger btn-sm" style="background-color: blue;">edit</a>
                             </td>
                             <td>
                                 <a href="{{ url_for('delete', id=task[0]) }}" class="btn btn-danger btn-sm">Delete</a>

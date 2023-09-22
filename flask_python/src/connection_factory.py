@@ -14,7 +14,6 @@ def insert_values(table, columns, values):
     try:
         placeholders = ', '.join(['%s'] * len(values))
         sql = "INSERT INTO {} ({}) VALUES ({})".format(table, columns, placeholders)
-        print(sql)
         mycursor.execute(sql,values)
         mydb.commit()
     except mysql.connector.Error as err:
@@ -23,11 +22,19 @@ def insert_values(table, columns, values):
 def delete_recordById(table,id):
     try:
         sql = "DELETE FROM {} WHERE id=({})".format(table,id)
-        print(sql)
         mycursor.execute(sql)
         mydb.commit()
     except mysql.connector.Error as err:
         print("Insertion error:", err)
+
+def update_recordById(table, id, columns, values):
+        try:
+            sql = "UPDATE {} SET {} WHERE id={}".format(table, columns, id)
+            mycursor.execute(sql,values)
+            print(sql,values)
+            mydb.commit()
+        except mysql.connector.Error as err:
+            print("Insertion error:", err)
 
 def querry(querry:str):
     mycursor.execute(querry)
