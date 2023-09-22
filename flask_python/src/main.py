@@ -23,6 +23,7 @@ def add_task():
 
 @app.route('/delete/<string:id>')
 def delete(id):
+    delete_recordById("tasks",id)
     return redirect(url_for('index'))
 
 @app.route('/edit/<string:id>', methods=['POST'])

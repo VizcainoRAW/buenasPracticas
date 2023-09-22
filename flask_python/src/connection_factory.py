@@ -20,6 +20,15 @@ def insert_values(table, columns, values):
     except mysql.connector.Error as err:
         print("Insertion error:", err)
 
+def delete_recordById(table,id):
+    try:
+        sql = "DELETE FROM {} WHERE id=({})".format(table,id)
+        print(sql)
+        mycursor.execute(sql)
+        mydb.commit()
+    except mysql.connector.Error as err:
+        print("Insertion error:", err)
+
 def querry(querry:str):
     mycursor.execute(querry)
     data = mycursor.fetchall()
