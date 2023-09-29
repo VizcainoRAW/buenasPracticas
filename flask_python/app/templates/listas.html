@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Estudiantes</title>
+</head>
+<body>
+    <h1>Lista de tareas</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>Id: {{ task[0] }}, Nombre: {{ task[1] }}, estado: {{ task[2]}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

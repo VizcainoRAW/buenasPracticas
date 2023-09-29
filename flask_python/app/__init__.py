@@ -1,5 +1,5 @@
 from flask import *
-from connection_factory import *
+from flask_python.app.config import *
 
 app = Flask(__name__)
 
