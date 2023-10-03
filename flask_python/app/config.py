@@ -10,7 +10,6 @@ DATABASE_CONFIG = {
     'database': 'TasksDB',
 }
 
-
 DB_URL = f"mysql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}"
 
 engine = create_engine(DB_URL)
