@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -7,8 +7,8 @@ class Task(Base):
     __tablename__ = 'tasks'
 
     id = Column(Integer, primary_key=True)
-    title = Column(String(128), nullable=False)
-    description = Column(String(256))
+    name = Column(String(128), nullable=False)
+    state = Column(Boolean())
 
     def __init__(self, title, description):
         self.title = title
@@ -17,6 +17,6 @@ class Task(Base):
     def serialize(self):
         return {
             'id': self.id,
-            'title': self.title,
-            'description': self.description
+            'name': self.name,
+            'state': self.state
         }
