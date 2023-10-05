@@ -71,11 +71,11 @@
                 <tbody>
                     {% for task in tasks %}
                         <tr>
-                            <td>{{ task[0] }}</td>
-                            <td>{{ task[1] }}</td>
-                            <td>{{ "Hecho" if task[2] else "No Hecho" }}</td>
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.name }}</td>
+                            <td>{{ "Hecho" if task.state else "No Hecho" }}</td>
                             <td>
-                                <a href="{{ url_for('tasks.delete', id=task[0]) }}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ url_for('tasks.delete', task_index=loop.index) }}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -1,5 +1,6 @@
 from flask import Flask
 from blueprints.task import task_scope
+import config
 
 app = Flask(__name__)
 

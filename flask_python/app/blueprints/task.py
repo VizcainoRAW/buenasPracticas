@@ -1,15 +1,17 @@
 from flask import *
-from .conf import *
+from config import session
+from models.task import *
 
 task_scope = Blueprint("tasks", __name__)
 
+tasks = []
 
 @task_scope.route("/")
 def index():
-    tasks = get_all_table("tasks")
-    template_folder = current_app.jinja_loader.searchpath[0]
-    print(f'Ubicación de la carpeta de plantillas: {template_folder}')
+    global tasks
+    tasks = session.query(Task).all()
     return render_template("tasks.html", tasks=tasks)
+
 
 @task_scope.route('/add', methods=['POST'])
 def add_task():
@@ -20,20 +22,44 @@ def add_task():
     else:
         state= False
     
-    insert_values("Tasks", "name, state", (name, state))
+    if name and state:
+        session.add(Task(name,state))
+        session.commit()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('tasks.index'))
 
-@task_scope.route('/delete/<id>')
-def delete(id):
-    delete_recordById("tasks",id)
-    return redirect(url_for('index'))
+@task_scope.route('/delete/<int:task_index>')
+def delete(task_index):
+    
+    task_index-=1
+    task=tasks[task_index]
+
+    if task:
+        session.delete(task)
+        session.commit()
+    else:
+        print(f"Task with ID {task.id} not found")
+
+    return redirect(url_for('tasks.index'))
 
 
-@task_scope.route('/edit',methods=["POST"])
+
+@task_scope.route('/edit', methods=["POST"])
 def edit():
-    id =request.form['id']
+    id = request.form['id']
     name = request.form['name']
     state = request.form.get('state')
-    update_recordById("tasks",id,"name=%s, state=%s",(name, state))
-    return redirect(url_for('index'))
+    
+    try:
+        task = session.query(Task).filter_by(id=id).first()
+        if task:
+            if name is not None:
+                task.name = name
+                task.state = state
+            session.commit()
+        else:
+            print(f"Didn't find a task with id: {id}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+    return redirect(url_for('tasks.index'))
