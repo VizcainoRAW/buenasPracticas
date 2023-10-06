@@ -48,8 +48,11 @@ def delete(task_index):
 def edit():
     id = request.form['id']
     name = request.form['name']
-    state = request.form.get('state')
-    
+    if request.form.get('state') == 'True':
+        state = True
+    else:
+        state= False
+
     try:
         task = session.query(Task).filter_by(id=id).first()
         if task:
