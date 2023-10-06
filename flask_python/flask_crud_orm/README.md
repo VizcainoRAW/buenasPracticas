@@ -30,11 +30,11 @@ env\Scripts\activate  # En Windows
 ### Instala las dependencias del proyecto:
 
 ```bash
-pip install -r requirements.txt
+pip install -r flask_crud_orm/requirements.txt
 ```
 
 Se va a correr la base de datos en host local(puede ser cambiado a conveniencia):
-en flask_crud_orm/migrations estan tasksDB.sql y tasksDB_records.sql, tienen que ser ejecutadas todas las lineas de comando con MySQL, siendo el script para montar la base de datos y sus resgistros de testing(para esto tiene que estar instalado MySQL Server).
+en flask_crud_orm estan tasksDB.sql y tasksDB_records.sql, tienen que ser ejecutadas todas las lineas de comando con MySQL, siendo el script para montar la base de datos y sus resgistros de testing(para esto tiene que estar instalado MySQL Server).
 
 ## Configuración
 Antes de ejecutar el proyecto, asegúrate de que la configuración de la base de datos sea correcta. En el archivo flask_crud_orm/app/config.py, verifica que los valores de usuario, contraseña, host, puerto y nombre de la base de datos coincidan con tu configuración. Por defecto se encuentran como:

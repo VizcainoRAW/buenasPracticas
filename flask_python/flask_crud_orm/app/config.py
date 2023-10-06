@@ -1,6 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
+from extensions import *
 
 DATABASE_CONFIG = {
     'user': 'root',
